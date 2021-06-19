@@ -11,8 +11,8 @@ const completeEl = document.getElementById('complete');
 const completeElInfo = document.getElementById('complete-info');
 const completeBtn = document.getElementById('complete-button');
 
-let countdownTitle = "";
-let countdownDate = "";
+let countdownTitle = '';
+let countdownDate = '';
 let countdownValue = Date;
 let countdownActive;
 let savedCountdown;
@@ -23,8 +23,8 @@ const hour = minute * 60;
 const day = hour * 24;
 
 // Set Date Input Min & Value with Today's Date
-const today = new Date().toISOString().split("T")[0];
-dateEl.setAttribute("min", today);
+const today = new Date().toISOString().split('T')[0];
+dateEl.setAttribute('min', today);
 
 // Populate Countdown / Complete UI
 function updateDOM() {
@@ -54,4 +54,24 @@ function updateDOM() {
       countdownEl.hidden = false;
     }
   }, second);
+}
+
+function updateCountdown(e) {
+  e.preventDefault();
+  // Set title and date, save to localStorage
+  countdownTitle = e.srcElement[0].value;
+  countdownDate = e.srcElement[1].value;
+  savedCountdown = {
+    title: countdownTitle,
+    date: countdownDate,
+  };
+  localStorage.setItem('countdown', JSON.stringify(savedCountdown));
+  // Check if no date entered
+  if (countdownDate === '') {
+    alert('Please select a date for the countdown.');
+  } else {
+    // Get number version of current Date, updateDOM
+    countdownValue = new Date(countdownDate).getTime();
+    updateDOM();
+  }
 }
