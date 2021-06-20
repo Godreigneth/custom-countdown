@@ -75,3 +75,16 @@ function updateCountdown(e) {
     updateDOM();
   }
 }
+
+function reset() {
+  // Hide countdowns, show input form
+  countdownEl.hidden = true;
+  completeEl.hidden = true;
+  inputContainer.hidden = false;
+  // Stop the countdown
+  clearInterval(countdownActive);
+  // Reset values, remove localStorage item
+  countdownTitle = '';
+  countdownDate = '';
+  localStorage.removeItem('countdown');
+}
